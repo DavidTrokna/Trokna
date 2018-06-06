@@ -1,0 +1,24 @@
+Anna
+test
+100
+12345
+Ort
+Strasse
+Deutschland
+k
+Susi
+shop
+200
+12346
+Ort
+Strassee
+D
+k
+Bob
+bob
+300
+12233
+Berlin
+Berliner Strasse
+Deutschland
+k
