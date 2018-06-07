@@ -1,6 +1,5 @@
 package shop.local.ui.gui;
 
-// TEST
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -39,15 +38,10 @@ public class EShopGUI extends JFrame {
 
         try {
             shop = new EShop("EShop");
-            initializeAll();
+            initializeLogin();
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    private void initializeAll() {
-        initializeLogin();
-
     }
 
     private void initializeLogin() {
@@ -102,7 +96,7 @@ public class EShopGUI extends JFrame {
         this.add(loginPanel, BorderLayout.CENTER);
         this.add(loginButtonPanel, BorderLayout.SOUTH);
 
-        this.setSize(1600, 900);
+        this.setSize(1280, 720);
         this.setVisible(true);
     }
 
@@ -211,7 +205,7 @@ public class EShopGUI extends JFrame {
         this.add(insertPanel, BorderLayout.EAST);
         this.add(scrollPane, BorderLayout.CENTER);
 
-        this.setSize(1600, 900);
+        this.setSize(1280, 720);
         this.setVisible(true);
     }
 
@@ -329,7 +323,7 @@ public class EShopGUI extends JFrame {
         this.add(insertPanel, BorderLayout.EAST);
         this.add(scrollPane, BorderLayout.CENTER);
 
-        this.setSize(1600, 900);
+        this.setSize(1280, 720);
         this.setVisible(true);
     }
 
@@ -357,13 +351,14 @@ public class EShopGUI extends JFrame {
                     if (eingeloggterBenutzer instanceof Arbeiter) {
                         initializeAdmin();
                     }
-                    else if (eingeloggterBenutzer instanceof Kunde) {
+                    else {
                         initializeCustomer();
                     }
 
                 } catch (BenutzernameOderPasswortFalschException bpfe) {
                     // TODO: JOptionPane
-                    System.err.println(bpfe.getMessage());
+                    // die kommende Zeile nehmen um Meldungen als Pop-Up zu zeigen. Ggf. "rootPane" zu einem anderen Frame ändern.
+                    JOptionPane.showMessageDialog(rootPane, bpfe.getMessage());
                 }
 
 
@@ -393,12 +388,16 @@ public class EShopGUI extends JFrame {
     class FileMenu extends JMenu implements ActionListener {
 
         public FileMenu() {
-            super("File");
-            JMenuItem mi = new JMenuItem("Save");
+            super("Menü");
+            JMenuItem mi = new JMenuItem("Abmelden");
             mi.addActionListener(this);
             this.add(mi);
             this.addSeparator();
-            mi = new JMenuItem("Quit");
+            mi = new JMenuItem("Speichern");
+            mi.addActionListener(this);
+            this.add(mi);
+            this.addSeparator();
+            mi = new JMenuItem("Beenden");
             mi.addActionListener(this);
             this.add(mi);
         }
@@ -408,13 +407,17 @@ public class EShopGUI extends JFrame {
             String command = ae.getActionCommand();
             System.out.println(command);
 
-            if (command.equals("Save")) {
+            if (command.equals("Abmelden")) {
+                rootPane.getContentPane().removeAll();
+                initializeLogin();
+            }
+            else if (command.equals("Speichern")) {
                 try {
                     shop.schreibeDaten();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-            } else if (command.equals("Quit")) {
+            } else if (command.equals("Beenden")) {
                 setVisible(false);
                 dispose();
                 System.exit(0);
@@ -424,7 +427,7 @@ public class EShopGUI extends JFrame {
 
     class HelpMenu extends JMenu implements ActionListener {
 
-        JDialog team = new CreateDialog();
+//        JDialog team = new CreateDialog();
 
         public HelpMenu() {
             super("Hilfe");
@@ -440,14 +443,14 @@ public class EShopGUI extends JFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
             System.out.println("Klick auf Menüpunkt '" + e.getActionCommand() + "'.");
-            showDialog();
+            JOptionPane.showMessageDialog(this, "Dieses Projekt wurde von Serkan Kayman, Daniel Smolen und Henrik Wilkens für Programmieren 2 erstellt.");
         }
 
-        private class CreateDialog extends JDialog {
+        /*private class CreateDialog extends JDialog {
 
             private JDialog dialog() {
                 JDialog dialog = new JDialog(new JFrame(), "Das Team:", false);
-                JLabel label = new JLabel("Dieses Projekt wurde von Daniel Smolen und Henrik Wilkens für Programmieren 2 erstellt.");
+                JLabel label = new JLabel("Dieses Projekt wurde von Serkan Kayman, Daniel Smolen und Henrik Wilkens für Programmieren 2 erstellt.");
                 label.setHorizontalAlignment(JLabel.CENTER);
                 label.setPreferredSize(new Dimension(200, 140));
                 dialog.add(label);
@@ -464,6 +467,6 @@ public class EShopGUI extends JFrame {
             } else {
                 team.setVisible(true);
             }
-        }
+        }*/
     }
 }
