@@ -7,13 +7,9 @@ public class ArtikelExistiertBereitsException extends Exception {
 
 	private Artikel exArtikel;
 
-	public ArtikelExistiertBereitsException(Artikel artikel)/*+ , String zusatzMsg */{
+	public ArtikelExistiertBereitsException(Artikel artikel)/*+ , String zusatzMsg */ {
 		super("Artikel mit der Nummer " + artikel.getNummer() + " existiert bereits."); /* + zusatzMsg*/
 
 		this.exArtikel = artikel;
-	}
-
-	public Artikel getExArtikel() {
-		return exArtikel;
 	}
 }

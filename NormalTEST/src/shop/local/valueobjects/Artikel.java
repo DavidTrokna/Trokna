@@ -1,13 +1,13 @@
 package shop.local.valueobjects;
 
 public class Artikel implements Comparable<Artikel> {
-	private String titel;
+	private String bezeichnung;
 	private int artNummer;
 	private int bestand;
 	private float preis;
 	
 	public Artikel (String titel, int artNummer, int bestand, float preis) {
-		this.titel = titel;
+		this.bezeichnung = titel;
 		this.artNummer = artNummer;
 		this.bestand = bestand;
 		this.preis = preis;
@@ -17,15 +17,15 @@ public class Artikel implements Comparable<Artikel> {
 	public String toString() {
 		//String verfuegbarkeit = this.bestand>0 ? "verfuegbar" : "ausverkauft";
 		
-		return ("Nr: " + artNummer + " | Bezeichnung: " + titel + " | Bestand: " + bestand + " | Preis: " + preis + " Euro");
+		return ("Nr: " + artNummer + " | Bezeichnung: " + bezeichnung + " | Bestand: " + bestand + " | Preis: " + preis + " Euro");
 	}
 	
 	public int getNummer() {
 		return artNummer;
 	}
 
-	public String getTitel() {
-		return titel;
+	public String getBezeichnung() {
+		return bezeichnung;
 	}
 	
 	public int getBestand() {

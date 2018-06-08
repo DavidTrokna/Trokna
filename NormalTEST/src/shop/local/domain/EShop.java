@@ -5,9 +5,7 @@ import java.util.List;
 import java.util.Date;
 import java.text.*;
 
-import shop.local.domain.exceptions.ArtikelExistiertBereitsException;
-import shop.local.domain.exceptions.ArtikelExistiertNichtException;
-import shop.local.domain.exceptions.BenutzernameOderPasswortFalschException;
+import shop.local.domain.exceptions.*;
 import shop.local.valueobjects.*;
 
 
@@ -43,9 +41,17 @@ public class EShop {
         return artikelVw.getArtikelBestand();
     }
 
+    public List<Arbeiter> gibAlleArbeiter() {
+        return benutzerVw.getArbeiterListe();
+    }
+
+    public List<Kunde> gibAlleKunden() {
+        return benutzerVw.getKundenListe();
+    }
+
     //neuen Artikel einfügen
-    public void fuegeArtikelEin(String titel, int nummer, int menge, float preis) throws ArtikelExistiertBereitsException {
-        Artikel einArtikel = new Artikel (titel, nummer, menge, preis);
+    public void fuegeArtikelEin(String bezeichnung, int nummer, int menge, float preis) throws ArtikelExistiertBereitsException {
+        Artikel einArtikel = new Artikel (bezeichnung, nummer, menge, preis);
         artikelVw.einfuegen(einArtikel);
     }
 
@@ -89,7 +95,7 @@ public class EShop {
     }
 
     // Fügt einen Artikel dem Warenkorb hinzu
-    public void addToCart(int artNummer, int artMenge, Cart cart) {
+    public void addToCart(int artNummer, int artMenge, Cart cart) throws ArtikelExistiertNichtException {
                 shoppingS.inCart(artNummer, artMenge, cart);
     }
 
@@ -104,12 +110,12 @@ public class EShop {
     }
 
     // Methode zum erstellen von Arbeitern
-    public void newA (String name, String passwort, String num, String usertype) {
+    public void newA (String name, String passwort, String num, String usertype) throws ArbeiterExistiertBereitsException{
         benutzerVw.einfuegenA(name, passwort, num, usertype);
     }
 
     // Methode zum erstellen von Kunden
-    public void newK (String name, String passwort, String num, String plz, String ort, String strasse, String land) {
+    public void newK (String name, String passwort, String num, String plz, String ort, String strasse, String land) throws KundeExistiertBereitsException {
         benutzerVw.einfuegenK(name, passwort, num, plz, ort, strasse, land);
     }
 

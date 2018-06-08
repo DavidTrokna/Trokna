@@ -19,9 +19,16 @@ public class BenutzerVerwaltung {
     private List<Kunde> kundenListe = new Vector<>();
     private List<Arbeiter> arbeiterListe = new Vector<>();
 
-    //private List<User> UserList = new Vector<User>();
 
     private PersistenceManager pm = new FilePersistenceManager();
+
+    public List<Arbeiter> getArbeiterListe() {
+        return arbeiterListe;
+    }
+
+    public List<Kunde> getKundenListe() {
+        return kundenListe;
+    }
 
     //Ab hier Persistenz für Arbeiter
    	public void liesArbeiter(String datei) throws IOException {

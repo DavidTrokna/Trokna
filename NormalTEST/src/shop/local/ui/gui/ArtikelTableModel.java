@@ -46,7 +46,7 @@ public class ArtikelTableModel extends AbstractTableModel {
              case 0:
                  return chosenArtikel.getNummer();
              case 1:
-                 return chosenArtikel.getTitel();
+                 return chosenArtikel.getBezeichnung();
              case 2:
                  return chosenArtikel.getBestand();
              case 3:

@@ -4,12 +4,15 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.Collections;
 
 import shop.local.domain.EShop;
 import shop.local.domain.exceptions.ArtikelExistiertBereitsException;
+import shop.local.domain.exceptions.ArtikelExistiertNichtException;
 import shop.local.domain.exceptions.BenutzernameOderPasswortFalschException;
+import shop.local.domain.exceptions.KundeExistiertBereitsException;
 import shop.local.valueobjects.Arbeiter;
 import shop.local.valueobjects.Artikel;
 import shop.local.valueobjects.Kunde;
@@ -22,14 +25,24 @@ public class EShopGUI extends JFrame {
     private JButton buyButton;
     private JTextField numTextFeld;
     private JTextField bezeichnungTextFeld;
+    private JTextField nameTextFeld;
     private JTextField searchTextField;
     private JTextField loginNameTextField;
     private JTextField loginPasswordTextField;
     private JTextField amountTextFeld;
-    private JScrollPane scrollPane;
+    private JTextField pwTextFeld;
+    private JScrollPane artikelScrollPane;
+    private JScrollPane arbeiterScrollPane;
+    private JScrollPane kundenScrollPane;
     private JList artikelListe;
     private JTable artikelTabelle;
+    private JTable arbeiterTabelle;
+    private JTable kundenTabelle;
+    private JTextField plzTextFeld;
     private JTextField prizeTextFeld;
+    private JTextField ortTextFeld;
+    private JTextField strTextFeld;
+    private JTextField landTextFeld;
 
     private User eingeloggterBenutzer = null;
 
@@ -43,6 +56,49 @@ public class EShopGUI extends JFrame {
             e.printStackTrace();
         }
     }
+
+    /*private void initializeTest () {
+        JTabbedPane adminTabbedPane = new JTabbedPane();
+
+        JPanel suchPanel = new JPanel();
+        suchPanel.setBorder(BorderFactory.createTitledBorder("Suche"));
+
+        GridBagLayout gridBagLayout = new GridBagLayout();
+        suchPanel.setLayout(gridBagLayout);
+        GridBagConstraints c = new GridBagConstraints();
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridy = 0;
+
+        JLabel searchLabel = new JLabel("Suchbegriff:");
+        c.gridx = 0;
+        c.weightx = 0.1;
+        c.anchor = GridBagConstraints.EAST;
+        gridBagLayout.setConstraints(searchLabel, c);
+        suchPanel.add(searchLabel);
+
+        searchTextField = new JTextField();
+        searchTextField.setToolTipText("Wonach soll gesucht werden?");
+        c.gridx = 1;
+        c.weightx = 0.6;
+        gridBagLayout.setConstraints(searchTextField, c);
+        suchPanel.add(searchTextField);
+
+        JButton searchButton = new JButton("Los!");
+        searchButton.addActionListener(new SuchActionListener());
+        c.gridx = 2;
+        c.weightx = 0.2;
+        gridBagLayout.setConstraints(searchButton, c);
+        suchPanel.add(searchButton);
+
+        adminTabbedPane.addTab("Suchen", suchPanel);
+        adminTabbedPane.setMnemonicAt(0, KeyEvent.VK_S);
+
+        this.setLayout(new BorderLayout());
+        this.add(adminTabbedPane, BorderLayout.CENTER);
+
+        this.setSize(1280, 720);
+        this.setVisible(true);
+    }*/
 
     private void initializeLogin() {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -85,7 +141,6 @@ public class EShopGUI extends JFrame {
 
         JButton loginButton = new JButton("Anmelden");
         loginButton.addActionListener(new LoginActionListener());
-        // TODO: richtiges Verhalten zuordnen
         c.gridx = 2;
         c.weightx = 0.2;
         c.anchor = GridBagConstraints.SOUTH;
@@ -138,7 +193,6 @@ public class EShopGUI extends JFrame {
 
         JButton searchButton = new JButton("Los!");
         searchButton.addActionListener(new SuchActionListener());
-        // TODO: richtiges Verhalten zuordnen
         c.gridx = 2;
         c.weightx = 0.2;
         gridBagLayout.setConstraints(searchButton, c);
@@ -172,8 +226,11 @@ public class EShopGUI extends JFrame {
                         shop.addToCart(nummer, amount, ((Kunde) eingeloggterBenutzer).getWarenkorb());
                         numTextFeld.setText("");
                         amountTextFeld.setText("");
-                    } catch (NumberFormatException e2) {
-                        System.err.println(e2.getMessage());
+                    } catch (ArtikelExistiertNichtException aene) {
+                        JOptionPane.showMessageDialog(rootPane, aene.getMessage());
+                    }
+                    catch (NumberFormatException nfe) {
+                        JOptionPane.showMessageDialog(rootPane, nfe.getMessage());
                     }
                 }
             }
@@ -196,14 +253,14 @@ public class EShopGUI extends JFrame {
         java.util.List<Artikel> artikel = shop.gibAlleArtikel();
         ArtikelTableModel tModel = new ArtikelTableModel(artikel);
         artikelTabelle = new JTable(tModel);
-        scrollPane = new JScrollPane(artikelTabelle);
+        artikelScrollPane = new JScrollPane(artikelTabelle);
 
         this.getContentPane().removeAll();
 
         this.setLayout(new BorderLayout());
         this.add(suchPanel, BorderLayout.SOUTH);
         this.add(insertPanel, BorderLayout.EAST);
-        this.add(scrollPane, BorderLayout.CENTER);
+        this.add(artikelScrollPane, BorderLayout.CENTER);
 
         this.setSize(1280, 720);
         this.setVisible(true);
@@ -221,6 +278,10 @@ public class EShopGUI extends JFrame {
         this.setJMenuBar(mBar);
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+        //new TabbedPane
+        JTabbedPane insertTabbedPane = new JTabbedPane();
+        JTabbedPane contentTabbedPane = new JTabbedPane();
 
         JPanel suchPanel = new JPanel();
         suchPanel.setBorder(BorderFactory.createTitledBorder("Suche"));
@@ -247,7 +308,6 @@ public class EShopGUI extends JFrame {
 
         JButton searchButton = new JButton("Los!");
         searchButton.addActionListener(new SuchActionListener());
-        // TODO: richtiges Verhalten zuordnen
         c.gridx = 2;
         c.weightx = 0.2;
         gridBagLayout.setConstraints(searchButton, c);
@@ -255,7 +315,7 @@ public class EShopGUI extends JFrame {
 
         int noOfRows = 12;
         JPanel insertPanel = new JPanel();
-        insertPanel.setBorder(BorderFactory.createTitledBorder("Einfügen"));
+        insertPanel.setBorder(BorderFactory.createTitledBorder("Artikel einfügen"));
         insertPanel.setLayout(new GridLayout(noOfRows, 1));
         insertPanel.add(new JLabel("Nummer"));
         numTextFeld = new JTextField();
@@ -295,10 +355,10 @@ public class EShopGUI extends JFrame {
                         numTextFeld.setText("");
                         amountTextFeld.setText("");
                         prizeTextFeld.setText("");
-                    } catch (ArtikelExistiertBereitsException e1) {
-                        System.err.println(e1.getMessage());
-                    } catch (NumberFormatException e2) {
-                        System.err.println(e2.getMessage());
+                    } catch (ArtikelExistiertBereitsException aebe) {
+                        JOptionPane.showMessageDialog(rootPane, aebe.getMessage());
+                    } catch (NumberFormatException nfe) {
+                        JOptionPane.showMessageDialog(rootPane, nfe.getMessage());
                     }
                 }
             }
@@ -311,17 +371,115 @@ public class EShopGUI extends JFrame {
         java.util.List<Artikel> artikel = shop.gibAlleArtikel();
         ArtikelTableModel tModel = new ArtikelTableModel(artikel);
         artikelTabelle = new JTable(tModel);
-        scrollPane = new JScrollPane(artikelTabelle);
+        artikelScrollPane = new JScrollPane(artikelTabelle);
 
+        //Tab für User
+        int numOfRows = 16;
+        JPanel userPanel = new JPanel();
+        userPanel.setBorder(BorderFactory.createTitledBorder("User anlegen"));
+        userPanel.setLayout(new GridLayout(numOfRows, 1));
+        userPanel.add(new JLabel("Name"));
+        nameTextFeld = new JTextField();
+        userPanel.add(nameTextFeld);
+        userPanel.add(new JLabel());
+        userPanel.add(new JLabel());
+        userPanel.add(new JLabel("Passwort"));
+        pwTextFeld = new JTextField();
+        userPanel.add(pwTextFeld);
+        userPanel.add(new JLabel());
+        userPanel.add(new JLabel());
+        userPanel.add(new JLabel("Nummer"));
+        numTextFeld = new JTextField();
+        userPanel.add(numTextFeld);
+        userPanel.add(new JLabel());
+        userPanel.add(new JLabel());
+        userPanel.add(new JLabel("Postleitzahl"));
+        plzTextFeld = new JTextField();
+        userPanel.add(plzTextFeld);
+        userPanel.add(new JLabel());
+        userPanel.add(new JLabel());
+        userPanel.add(new JLabel("Ort"));
+        ortTextFeld = new JTextField();
+        userPanel.add(ortTextFeld);
+        userPanel.add(new JLabel());
+        userPanel.add(new JLabel());
+        userPanel.add(new JLabel("Strasse"));
+        strTextFeld = new JTextField();
+        userPanel.add(strTextFeld);
+        userPanel.add(new JLabel());
+        userPanel.add(new JLabel());
+        userPanel.add(new JLabel("Land"));
+        landTextFeld = new JTextField();
+        userPanel.add(landTextFeld);
+
+        /*//Platzhalter
+        userPanel.add(new JLabel());
+        userPanel.add(new JLabel());*/
+
+        addButton = new JButton("Anlegen");
+        addButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String name = nameTextFeld.getText();
+                String passwort = pwTextFeld.getText();
+                String nummer = numTextFeld.getText();
+                String plz = plzTextFeld.getText();
+                String ort = ortTextFeld.getText();
+                String strasse = strTextFeld.getText();
+                String land = landTextFeld.getText();
+                if (!name.isEmpty() && !passwort.isEmpty() && !nummer.isEmpty()) {
+                    try {
+                        shop.newK(name, passwort, nummer, plz, ort, strasse, land);
+                        nameTextFeld.setText("");
+                        pwTextFeld.setText("");
+                        numTextFeld.setText("");
+                        numTextFeld.setText("");
+                        numTextFeld.setText("");
+                        numTextFeld.setText("");
+                        numTextFeld.setText("");
+
+                        //TODO: Irgendwie noch entscheiden, ob ein Kunde oder eine Arbeiter angelegt werden muss
+                    } catch (KundeExistiertBereitsException kebe) {
+                        JOptionPane.showMessageDialog(rootPane, kebe.getMessage());
+                    } catch (NumberFormatException nfe) {
+                        JOptionPane.showMessageDialog(rootPane, nfe.getMessage());
+                    }
+                }
+            }
+        });
+        userPanel.add(new JLabel());
+        userPanel.add(addButton);
+
+        java.util.List<Arbeiter> admins = shop.gibAlleArbeiter();
+        ArbeiterTableModel aModel = new ArbeiterTableModel(admins);
+        arbeiterTabelle = new JTable(aModel);
+        arbeiterScrollPane = new JScrollPane(arbeiterTabelle);
+
+        java.util.List<Kunde> customers = shop.gibAlleKunden();
+        KundenTableModel kModel = new KundenTableModel (customers);
+        kundenTabelle = new JTable(kModel);
+        kundenScrollPane = new JScrollPane(kundenTabelle);
 
         // Komponenten aus vorigem Layout entfernen
         this.getContentPane().removeAll();
 
+        insertTabbedPane.addTab("Artikel", insertPanel);
+        insertTabbedPane.setMnemonicAt(0, KeyEvent.VK_A);
+        insertTabbedPane.addTab("User", userPanel);
+        insertTabbedPane.setMnemonicAt(1, KeyEvent.VK_U);
+
+        contentTabbedPane.addTab("Artikel", artikelScrollPane);
+        contentTabbedPane.setMnemonicAt(0, KeyEvent.VK_1);
+        contentTabbedPane.addTab("Arbeiter", arbeiterScrollPane);
+        contentTabbedPane.setMnemonicAt(1, KeyEvent.VK_2);
+        contentTabbedPane.addTab("Kunden", kundenScrollPane);
+        contentTabbedPane.setMnemonicAt(2, KeyEvent.VK_3);
+
         // Neue Komponenten zu neuem Layout hinzufügen
         this.setLayout(new BorderLayout());
         this.add(suchPanel, BorderLayout.SOUTH);
-        this.add(insertPanel, BorderLayout.EAST);
-        this.add(scrollPane, BorderLayout.CENTER);
+        this.add(insertTabbedPane, BorderLayout.EAST);
+        this.add(contentTabbedPane, BorderLayout.CENTER);
 
         this.setSize(1280, 720);
         this.setVisible(true);
@@ -356,7 +514,6 @@ public class EShopGUI extends JFrame {
                     }
 
                 } catch (BenutzernameOderPasswortFalschException bpfe) {
-                    // TODO: JOptionPane
                     // die kommende Zeile nehmen um Meldungen als Pop-Up zu zeigen. Ggf. "rootPane" zu einem anderen Frame ändern.
                     JOptionPane.showMessageDialog(rootPane, bpfe.getMessage());
                 }
@@ -427,8 +584,6 @@ public class EShopGUI extends JFrame {
 
     class HelpMenu extends JMenu implements ActionListener {
 
-//        JDialog team = new CreateDialog();
-
         public HelpMenu() {
             super("Hilfe");
             JMenu m = new JMenu("Über");
@@ -438,35 +593,10 @@ public class EShopGUI extends JFrame {
             this.add(m);
         }
 
-
-
         @Override
         public void actionPerformed(ActionEvent e) {
             System.out.println("Klick auf Menüpunkt '" + e.getActionCommand() + "'.");
             JOptionPane.showMessageDialog(this, "Dieses Projekt wurde von Serkan Kayman, Daniel Smolen und Henrik Wilkens für Programmieren 2 erstellt.");
         }
-
-        /*private class CreateDialog extends JDialog {
-
-            private JDialog dialog() {
-                JDialog dialog = new JDialog(new JFrame(), "Das Team:", false);
-                JLabel label = new JLabel("Dieses Projekt wurde von Serkan Kayman, Daniel Smolen und Henrik Wilkens für Programmieren 2 erstellt.");
-                label.setHorizontalAlignment(JLabel.CENTER);
-                label.setPreferredSize(new Dimension(200, 140));
-                dialog.add(label);
-                // dieser befahl sorgt dafür, dass sich das Fenster an den Inhalt anpasst
-                dialog.pack();
-                return dialog;
-            }
-        }
-
-        public void showDialog() {
-            // wenn "team" schon geöffnet wurde, wird es in der Vordergrund geholt, sonst neu geöffnet
-            if (team.isShowing()) {
-                team.toFront();
-            } else {
-                team.setVisible(true);
-            }
-        }*/
     }
 }

@@ -139,7 +139,7 @@ public class FilePersistenceManager implements PersistenceManager {
 	 */
 	public boolean speichereArtikel(Artikel a) throws IOException {
 		// Titel, Nummer und Verf�gbarkeit schreiben
-		schreibeZeile(a.getTitel());
+		schreibeZeile(a.getBezeichnung());
 		schreibeZeile(a.getNummer() + "");
 		schreibeZeile(Integer.valueOf(a.getBestand()).toString());
 		schreibeZeile(Float.valueOf(a.getPreis()).toString());

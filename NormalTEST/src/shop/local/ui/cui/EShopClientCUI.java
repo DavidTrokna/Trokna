@@ -23,8 +23,6 @@ public class EShopClientCUI {
 
 	private User eingeloggterBenutzer = null;
 	
-	// private User eingeloggterUser = null;
-	
 	public EShopClientCUI(String datei) throws IOException {
 		shop = new EShop(datei);
 
@@ -99,7 +97,7 @@ public class EShopClientCUI {
 
 		String nummer;
 		int nr;
-		String titel;
+		String bezeichnung;
 		int menge;
 		List<Artikel> liste;
 
@@ -130,13 +128,13 @@ public class EShopClientCUI {
 					nummer = liesEingabe();
 					nr = Integer.parseInt(nummer);
 					System.out.print("Artikelbezeichnung  > ");
-					titel = liesEingabe();
+					bezeichnung = liesEingabe();
 					System.out.print("Artikelbestand > ");
 					bestand = liesZahl();
 					System.out.print("Artikelpreis > ");
 					preis = liesKommaZahl();
 					try {
-						shop.fuegeArtikelEin(titel, nr, bestand, preis);
+						shop.fuegeArtikelEin(bezeichnung, nr, bestand, preis);
 						System.out.println("Der Artikel wurde eingefügt.");
 						shop.einlagerung(eingeloggterBenutzer, nr, bestand);
 					} catch (ArtikelExistiertBereitsException e) {
@@ -194,8 +192,8 @@ public class EShopClientCUI {
 				break;
 /*			case "f": //suchen
 				System.out.print("Artikelbezeichnung  > ");
-				titel = liesEingabe();
-			liste = shop.sucheNachTitel(titel);
+				bezeichnung = liesEingabe();
+			liste = shop.sucheNachTitel(bezeichnung);
 			gibArtikellisteAus(liste);
 				break;*/
 			case "r": //sortieren nach Name
@@ -218,7 +216,6 @@ public class EShopClientCUI {
 				} catch (IOException e) {
 					break;
 				}
-
 					try {
 						shop.setMenge(nr, menge);
 					} catch (ArtikelExistiertNichtException e) {
@@ -290,7 +287,11 @@ public class EShopClientCUI {
 					System.out.print("Menge  > ");
 					menge = liesZahl();
 					if (eingeloggterBenutzer instanceof Kunde) {
-						shop.addToCart(nr, menge, ((Kunde) eingeloggterBenutzer).getWarenkorb());
+						try {
+							shop.addToCart(nr, menge, ((Kunde) eingeloggterBenutzer).getWarenkorb());
+						} catch (ArtikelExistiertNichtException aene) {
+							System.err.println(aene.getMessage());
+						}
 					}
 					System.out.print(" \n Der Artikel wurde zu Ihrem Warenkorb hinzugefuegt. \n ");
 					break;
@@ -326,7 +327,7 @@ public class EShopClientCUI {
 		Iterator<Artikel> it = liste.iterator();
 		while (it.hasNext()) {
 			Artikel aktArtikel = it.next();
-			Artikelnames.add("Bezeichnung: "+aktArtikel.getTitel()+"	Nr:"+aktArtikel.getNummer()+"	/Bestand: "+aktArtikel.getBestand()+" /Preis: "+aktArtikel.getPreis() +" Euro");
+			Artikelnames.add("Bezeichnung: "+aktArtikel.getBezeichnung()+"	Nr:"+aktArtikel.getNummer()+"	/Bestand: "+aktArtikel.getBestand()+" /Preis: "+aktArtikel.getPreis() +" Euro");
 		}
 		Collections.sort(Artikelnames);
 		for (String index:Artikelnames) {
@@ -340,7 +341,7 @@ public class EShopClientCUI {
 		Iterator<Artikel> it = liste.iterator();
 		while (it.hasNext()) {
 			Artikel aktArtikel = it.next();
-			Artikelnummern.add("Nr: "+aktArtikel.getNummer()+" /Bezeichnung: "+aktArtikel.getTitel()+"	/Bestand: "+aktArtikel.getBestand()+" /Preis: "+aktArtikel.getPreis() +" Euro" );
+			Artikelnummern.add("Nr: "+aktArtikel.getNummer()+" /Bezeichnung: "+aktArtikel.getBezeichnung()+"	/Bestand: "+aktArtikel.getBestand()+" /Preis: "+aktArtikel.getPreis() +" Euro" );
 		}
 		Collections.sort(Artikelnummern);
 		for (String index:Artikelnummern) {

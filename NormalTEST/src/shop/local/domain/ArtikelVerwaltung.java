@@ -85,7 +85,7 @@ public class ArtikelVerwaltung {
 		Iterator<Artikel> it = artikelBestand.iterator();
 		while (it.hasNext()) {
 			Artikel aktArtikel = it.next();
-			if (aktArtikel.getTitel().equals(titel)) {
+			if (aktArtikel.getBezeichnung().equals(titel)) {
 				suchErg.add(aktArtikel);
 			}
 		}

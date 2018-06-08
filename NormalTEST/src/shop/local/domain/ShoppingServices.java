@@ -1,5 +1,6 @@
 package shop.local.domain;
 
+import shop.local.domain.exceptions.ArtikelExistiertNichtException;
 import shop.local.valueobjects.Artikel;
 import shop.local.valueobjects.Cart;
 import shop.local.valueobjects.Kunde;
@@ -21,12 +22,14 @@ public class ShoppingServices {
         return cart.getArtikel();
     }
 
-    public void inCart(int artNummer, int menge, Cart cart) {
+    public void inCart(int artNummer, int menge, Cart cart) throws ArtikelExistiertNichtException {
         List<Artikel> artikelBestand = artikelVw.getArtikelBestand();
         for (Artikel art : artikelBestand) {
             if (art.getNummer() == artNummer) {
                 //art.verringereBestand(menge); /nur wenn Artikel später auch rückgeführt werden
                 cart.add(art, menge);
+            } else {
+                throw new ArtikelExistiertNichtException(artNummer);
             }
         }
 
