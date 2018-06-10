@@ -7,9 +7,7 @@ import java.util.*;
 import java.util.List;
 
 import shop.local.domain.EShop;
-import shop.local.domain.exceptions.ArtikelExistiertBereitsException;
-import shop.local.domain.exceptions.ArtikelExistiertNichtException;
-import shop.local.domain.exceptions.BenutzernameOderPasswortFalschException;
+import shop.local.domain.exceptions.*;
 import shop.local.valueobjects.Artikel;
 import shop.local.valueobjects.Kunde;
 import shop.local.valueobjects.User;
@@ -168,8 +166,12 @@ public class EShopClientCUI {
 						passwort = liesEingabe();
 						System.out.print("Nummer > ");
 						num = liesEingabe();
-						shop.newA(name, passwort, num, usertype);
-						break;
+							try {
+								shop.newA(name, passwort, num, usertype);
+							} catch (ArbeiterExistiertBereitsException e) {
+								e.getMessage();
+							}
+							break;
 						case "k":
 						System.out.print("Name > ");
 						name = liesEingabe();
@@ -185,8 +187,12 @@ public class EShopClientCUI {
 						strasse = liesEingabe();
 						System.out.print("Land > ");
 						land = liesEingabe();
-						shop.newK(name, passwort, num, plz, ort, strasse, land);
-						break;
+							try {
+								shop.newK(name, passwort, num, plz, ort, strasse, land);
+							} catch (KundeExistiertBereitsException e) {
+								e.getMessage();
+							}
+							break;
 					}
 				}
 				break;

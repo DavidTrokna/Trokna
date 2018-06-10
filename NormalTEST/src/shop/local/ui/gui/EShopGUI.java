@@ -2,9 +2,7 @@ package shop.local.ui.gui;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
+import java.awt.event.*;
 import java.io.IOException;
 import java.util.Collections;
 
@@ -133,7 +131,7 @@ public class EShopGUI extends JFrame {
         gridBagLayout.setConstraints(passwordLabel, c);
         loginPanel.add(passwordLabel);
 
-        loginPasswordTextField = new JTextField();
+        loginPasswordTextField = new JPasswordField();
         c.gridx = 1;
         c.weightx = 0.6;
         gridBagLayout.setConstraints(loginPasswordTextField, c);
@@ -146,6 +144,17 @@ public class EShopGUI extends JFrame {
         c.anchor = GridBagConstraints.SOUTH;
         gridBagLayout.setConstraints(loginButton, c);
         loginButtonPanel.add(loginButton);
+
+        KeyListener loginKey = new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    loginButton.doClick();
+                }
+            }
+        };
+
+        loginPasswordTextField.addKeyListener(loginKey);
 
         this.setLayout(new BorderLayout());
         this.add(loginPanel, BorderLayout.CENTER);
@@ -412,6 +421,15 @@ public class EShopGUI extends JFrame {
         landTextFeld = new JTextField();
         userPanel.add(landTextFeld);
 
+        JRadioButton adminButton = new JRadioButton("Arbeiter");
+        JRadioButton customerButton = new JRadioButton("Kunden");
+        userPanel.add(adminButton);
+        userPanel.add(customerButton);
+
+        ButtonGroup usergroup = new ButtonGroup();
+        usergroup.add(adminButton);
+        usergroup.add(customerButton);
+
         /*//Platzhalter
         userPanel.add(new JLabel());
         userPanel.add(new JLabel());*/
@@ -433,10 +451,10 @@ public class EShopGUI extends JFrame {
                         nameTextFeld.setText("");
                         pwTextFeld.setText("");
                         numTextFeld.setText("");
-                        numTextFeld.setText("");
-                        numTextFeld.setText("");
-                        numTextFeld.setText("");
-                        numTextFeld.setText("");
+                        plzTextFeld.setText("");
+                        ortTextFeld.setText("");
+                        strTextFeld.setText("");
+                        landTextFeld.setText("");
 
                         //TODO: Irgendwie noch entscheiden, ob ein Kunde oder eine Arbeiter angelegt werden muss
                     } catch (KundeExistiertBereitsException kebe) {
