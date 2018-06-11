@@ -14,6 +14,8 @@ public class CartEntry {
         return artikel;
     }
 
+    public void setArtikel(Artikel artikel) { this.artikel = artikel; }
+
     public int getAnzahl() {
         return anzahl;
     }
@@ -21,4 +23,7 @@ public class CartEntry {
     public void setAnzahl(int anzahl) {
         this.anzahl = anzahl;
     }
+
+    public void setCartAnzahl() { this.anzahl = 0; }
+
 }
