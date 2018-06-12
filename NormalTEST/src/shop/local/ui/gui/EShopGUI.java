@@ -16,6 +16,7 @@ import shop.local.valueobjects.Artikel;
 import shop.local.valueobjects.Kunde;
 import shop.local.valueobjects.User;
 
+
 public class EShopGUI extends JFrame {
     private EShop shop;
     private JButton addButton;

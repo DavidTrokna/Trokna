@@ -51,7 +51,7 @@ public class EShop {
 
     //neuen Artikel einfügen
     public void fuegeArtikelEin(String bezeichnung, int nummer, int menge, float preis) throws ArtikelExistiertBereitsException {
-        Artikel einArtikel = new Artikel (bezeichnung, nummer, menge, preis);
+        Artikel einArtikel = new Artikel ();
         artikelVw.einfuegen(einArtikel);
     }
 

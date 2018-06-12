@@ -6,8 +6,8 @@ public class Artikel implements Comparable<Artikel> {
 	private int bestand;
 	private float preis;
 	
-	public Artikel (String titel, int artNummer, int bestand, float preis) {
-		this.bezeichnung = titel;
+	public Artikel(String name, int artNummer, int bestand, float preis) {
+		this.bezeichnung = name;
 		this.artNummer = artNummer;
 		this.bestand = bestand;
 		this.preis = preis;

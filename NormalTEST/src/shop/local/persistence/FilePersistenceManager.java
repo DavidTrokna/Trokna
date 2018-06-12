@@ -80,7 +80,7 @@ public class FilePersistenceManager implements PersistenceManager {
 		
 		
 		// neues Artikel-Objekt anlegen und zurückgeben
-		return new Artikel(titel, nummer, bestand, preis);
+		return new Artikel();
 	}
 
 	public Arbeiter ladeArbeiter() throws IOException {

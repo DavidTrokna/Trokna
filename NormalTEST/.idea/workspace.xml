@@ -13,13 +13,69 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="EShopGUI.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="EShopGUI.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/shop/local/ui/gui/EShopGUI.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1348">
-              <caret line="203" column="40" selection-start-line="203" selection-start-column="40" selection-end-line="203" selection-end-column="40" />
+            <state relative-caret-position="45">
+              <caret line="17" lean-forward="true" selection-start-line="17" selection-end-line="17" />
               <folding>
-                <element signature="imports" expanded="true" />
+                <element signature="e#5013#5246#0" expanded="true" />
+                <element signature="e#5245#5246#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Massengutartikel.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/shop/local/valueobjects/Massengutartikel.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="406">
+              <caret line="61" column="5" selection-start-line="61" selection-start-column="5" selection-end-line="61" selection-end-column="5" />
+              <folding>
+                <element signature="e#558#559#0" expanded="true" />
+                <element signature="e#589#590#0" expanded="true" />
+                <element signature="e#641#642#0" expanded="true" />
+                <element signature="e#682#683#0" expanded="true" />
+                <element signature="e#718#719#0" expanded="true" />
+                <element signature="e#745#746#0" expanded="true" />
+                <element signature="e#773#774#0" expanded="true" />
+                <element signature="e#819#820#0" expanded="true" />
+                <element signature="e#854#855#0" expanded="true" />
+                <element signature="e#883#884#0" expanded="true" />
+                <element signature="e#920#921#0" expanded="true" />
+                <element signature="e#939#940#0" expanded="true" />
+                <element signature="e#993#994#0" expanded="true" />
+                <element signature="e#1020#1021#0" expanded="true" />
+                <element signature="e#1055#1056#0" expanded="true" />
+                <element signature="e#1088#1089#0" expanded="true" />
+                <element signature="e#1122#1123#0" expanded="true" />
+                <element signature="e#1149#1150#0" expanded="true" />
+                <element signature="e#1206#1207#0" expanded="true" />
+                <element signature="e#1240#1241#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Kunde.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/shop/local/valueobjects/Kunde.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="75">
+              <caret line="7" selection-start-line="7" selection-end-line="7" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Artikel.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/shop/local/valueobjects/Artikel.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="510">
+              <caret line="38" column="4" lean-forward="true" selection-start-line="38" selection-start-column="4" selection-end-line="40" selection-end-column="5" />
+              <folding>
+                <element signature="e#644#645#0" expanded="true" />
+                <element signature="e#667#668#0" expanded="true" />
+                <element signature="e#815#816#0" expanded="true" />
+                <element signature="e#837#838#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -28,7 +84,7 @@
       <file leaf-file-name="EShop.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/shop/local/domain/EShop.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1410">
+            <state relative-caret-position="1500">
               <caret line="118" column="76" selection-start-line="118" selection-start-column="76" selection-end-line="118" selection-end-column="76" />
             </state>
           </provider>
@@ -37,7 +93,7 @@
       <file leaf-file-name="ArtikelExistiertBereitsException.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/shop/local/domain/exceptions/ArtikelExistiertBereitsException.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
+            <state relative-caret-position="195">
               <caret line="13" column="5" selection-start-line="7" selection-start-column="4" selection-end-line="9" selection-end-column="85" />
             </state>
           </provider>
@@ -72,19 +128,19 @@
         <option value="$PROJECT_DIR$/src/shop/local/domain/BenutzerVerwaltung.java" />
         <option value="$PROJECT_DIR$/src/shop/local/ui/gui/ArbeiterTableModel.java" />
         <option value="$PROJECT_DIR$/src/shop/local/ui/gui/KundenTableModel.java" />
-        <option value="$PROJECT_DIR$/src/shop/local/valueobjects/Artikel.java" />
         <option value="$PROJECT_DIR$/src/shop/local/domain/exceptions/ArbeiterExistiertBereitsException.java" />
         <option value="$PROJECT_DIR$/src/shop/local/domain/exceptions/KundeExistiertBereitsException.java" />
         <option value="$PROJECT_DIR$/src/shop/local/domain/EShop.java" />
         <option value="$PROJECT_DIR$/src/shop/local/ui/cui/EShopClientCUI.java" />
         <option value="$PROJECT_DIR$/src/shop/local/ui/gui/EShopGUI.java" />
+        <option value="$PROJECT_DIR$/src/shop/local/valueobjects/Artikel.java" />
+        <option value="$PROJECT_DIR$/src/shop/local/valueobjects/Massengutartikel.java" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="248" />
+  <component name="ProjectFrameBounds">
     <option name="y" value="23" />
-    <option name="width" value="1317" />
+    <option name="width" value="1440" />
     <option name="height" value="795" />
   </component>
   <component name="ProjectView">
@@ -92,9 +148,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="AndroidView" />
-      <pane id="Scope" />
       <pane id="PackagesPane" />
+      <pane id="AndroidView" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -169,6 +224,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -283,6 +339,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="795" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -296,7 +353,7 @@
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="2" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.12847222" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.19583334" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info id="UI Designer" order="2" />
@@ -305,12 +362,12 @@
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="Messages" order="7" weight="0.32764506" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
+      <window_info id="Learn" order="2" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3287827" />
-      <window_info anchor="bottom" id="Messages" order="7" weight="0.32764506" />
-      <window_info id="Learn" order="2" />
     </layout>
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -318,7 +375,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="13" />
+      <option name="time" value="16" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="Application">
@@ -341,13 +398,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/shop/local/valueobjects/Kunde.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/shop/local/domain/exceptions/ArtikelIstNichtVorhandenException.java" />
     <entry file="file://$PROJECT_DIR$/src/shop/local/domain/ShoppingServices.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -440,13 +490,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/shop/local/valueobjects/CartEntry.java" />
-    <entry file="file://$PROJECT_DIR$/src/shop/local/valueobjects/Kunde.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="125">
-          <caret line="7" selection-start-line="7" selection-end-line="7" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../Vorlage/src/bib/local/ui/gui/swing/BibGuiAusVL.java" />
     <entry file="file://$PROJECT_DIR$/src/shop/local/ui/gui/EShopGUI.form" />
     <entry file="jar://C:/Program Files (x86)/Java/jdk1.8.0_144/src.zip!/java/lang/Object.java" />
@@ -559,13 +602,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/shop/local/ui/gui/ArbeiterTableModel.java" />
     <entry file="file://$PROJECT_DIR$/src/shop/local/ui/gui/KundenTableModel.java" />
-    <entry file="file://$PROJECT_DIR$/src/shop/local/valueobjects/Artikel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="600">
-          <caret line="26" column="32" selection-start-line="26" selection-start-column="32" selection-end-line="26" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/shop/local/domain/ArtikelVerwaltung.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="350">
@@ -578,7 +614,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/shop/local/domain/exceptions/ArtikelExistiertBereitsException.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
+        <state relative-caret-position="195">
           <caret line="13" column="5" selection-start-line="7" selection-start-column="4" selection-end-line="9" selection-end-column="85" />
         </state>
       </provider>
@@ -587,7 +623,7 @@
     <entry file="file://$PROJECT_DIR$/src/shop/local/domain/exceptions/KundeExistiertBereitsException.java" />
     <entry file="file://$PROJECT_DIR$/src/shop/local/domain/EShop.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1410">
+        <state relative-caret-position="1500">
           <caret line="118" column="76" selection-start-line="118" selection-start-column="76" selection-end-line="118" selection-end-column="76" />
         </state>
       </provider>
@@ -601,10 +637,60 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/shop/local/ui/gui/EShopGUI.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1348">
-          <caret line="203" column="40" selection-start-line="203" selection-start-column="40" selection-end-line="203" selection-end-column="40" />
+        <state relative-caret-position="45">
+          <caret line="17" lean-forward="true" selection-start-line="17" selection-end-line="17" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="e#5013#5246#0" expanded="true" />
+            <element signature="e#5245#5246#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/shop/local/valueobjects/Kunde.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="7" selection-start-line="7" selection-end-line="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/shop/local/valueobjects/Artikel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="510">
+          <caret line="38" column="4" lean-forward="true" selection-start-line="38" selection-start-column="4" selection-end-line="40" selection-end-column="5" />
+          <folding>
+            <element signature="e#644#645#0" expanded="true" />
+            <element signature="e#667#668#0" expanded="true" />
+            <element signature="e#815#816#0" expanded="true" />
+            <element signature="e#837#838#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/shop/local/valueobjects/Massengutartikel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="406">
+          <caret line="61" column="5" selection-start-line="61" selection-start-column="5" selection-end-line="61" selection-end-column="5" />
+          <folding>
+            <element signature="e#558#559#0" expanded="true" />
+            <element signature="e#589#590#0" expanded="true" />
+            <element signature="e#641#642#0" expanded="true" />
+            <element signature="e#682#683#0" expanded="true" />
+            <element signature="e#718#719#0" expanded="true" />
+            <element signature="e#745#746#0" expanded="true" />
+            <element signature="e#773#774#0" expanded="true" />
+            <element signature="e#819#820#0" expanded="true" />
+            <element signature="e#854#855#0" expanded="true" />
+            <element signature="e#883#884#0" expanded="true" />
+            <element signature="e#920#921#0" expanded="true" />
+            <element signature="e#939#940#0" expanded="true" />
+            <element signature="e#993#994#0" expanded="true" />
+            <element signature="e#1020#1021#0" expanded="true" />
+            <element signature="e#1055#1056#0" expanded="true" />
+            <element signature="e#1088#1089#0" expanded="true" />
+            <element signature="e#1122#1123#0" expanded="true" />
+            <element signature="e#1149#1150#0" expanded="true" />
+            <element signature="e#1206#1207#0" expanded="true" />
+            <element signature="e#1240#1241#0" expanded="true" />
           </folding>
         </state>
       </provider>
