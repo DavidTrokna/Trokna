@@ -167,7 +167,7 @@ public class EShopClientCUI {
 						System.out.print("Nummer > ");
 						num = liesEingabe();
 							try {
-								shop.newA(name, passwort, num, usertype);
+								shop.newA(name, passwort, num);
 							} catch (ArbeiterExistiertBereitsException e) {
 								e.getMessage();
 							}
@@ -273,7 +273,7 @@ public class EShopClientCUI {
 					break;
 				}
 			case "k":
-				if (user instanceof Kunde) {
+				/*if (user instanceof Kunde) {
 					float betrag;
 					List<Artikel> cart;
 					betrag = shop.kaufeArtikel((Kunde) eingeloggterBenutzer);
@@ -284,7 +284,7 @@ public class EShopClientCUI {
 						System.out.println(shop.rechnung(((Kunde) eingeloggterBenutzer), cart, (shop.getDateAsString()), betrag));
 					}
 					break;
-				}
+				}*/
 			case "i": // in Warenkorb
 				if (user instanceof Kunde) {
 					System.out.print("Artikelnummer > ");

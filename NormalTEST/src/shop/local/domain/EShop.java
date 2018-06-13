@@ -51,7 +51,7 @@ public class EShop {
 
     //neuen Artikel einfügen
     public void fuegeArtikelEin(String bezeichnung, int nummer, int menge, float preis) throws ArtikelExistiertBereitsException {
-        Artikel einArtikel = new Artikel ();
+        Artikel einArtikel = new Artikel (bezeichnung, nummer, menge, preis);
         artikelVw.einfuegen(einArtikel);
     }
 
@@ -110,8 +110,8 @@ public class EShop {
     }
 
     // Methode zum erstellen von Arbeitern
-    public void newA (String name, String passwort, String num, String usertype) throws ArbeiterExistiertBereitsException{
-        benutzerVw.einfuegenA(name, passwort, num, usertype);
+    public void newA (String name, String passwort, String num) throws ArbeiterExistiertBereitsException{
+        benutzerVw.einfuegenA(name, passwort, num);
     }
 
     // Methode zum erstellen von Kunden
@@ -127,9 +127,9 @@ public class EShop {
         shoppingS.cartChange(nr, menge, warenkorb);
     }
 
-    public Rechnung rechnung(Kunde kunde, List<Artikel> cart, String date, float betrag) {
+    /*public Rechnung rechnung(Kunde kunde, List<Artikel> cart, String date, float betrag) {
         return shoppingS.erstelleRechnung(kunde, cart, date, betrag);
-    }
+    }*/
 
     public List<Artikel> sucheNachBezeichnung(String bezeichnung) {
         return artikelVw.sucheArtikel(bezeichnung);

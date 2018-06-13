@@ -60,8 +60,8 @@ public class FilePersistenceManager implements PersistenceManager {
 	 */
 	public Artikel ladeArtikel() throws IOException {
 		// Titel einlesen
-		String titel = liesZeile();
-		if (titel == null) {
+		String name = liesZeile();
+		if (name == null) {
 			// keine Daten mehr vorhanden
 			return null;
 		}
@@ -80,7 +80,7 @@ public class FilePersistenceManager implements PersistenceManager {
 		
 		
 		// neues Artikel-Objekt anlegen und zurückgeben
-		return new Artikel();
+		return new Artikel(name, nummer, bestand, preis);
 	}
 
 	public Arbeiter ladeArbeiter() throws IOException {

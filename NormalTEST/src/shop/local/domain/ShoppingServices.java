@@ -36,7 +36,6 @@ public class ShoppingServices {
     }
 
     public float buyCart(Kunde k) {
-
         List<Artikel> artikelBestand = artikelVw.getArtikelBestand();
         float betrag = 0;
         int artNummer;
@@ -82,8 +81,8 @@ public class ShoppingServices {
         a.setBestand(menge);
     }
 
-    public Rechnung erstelleRechnung(Kunde kunde, List<Artikel> cart, String date, float betrag) {
+    /*public Rechnung erstelleRechnung(Kunde kunde, List<Artikel> cart, String date, float betrag) {
         Rechnung re = new Rechnung(kunde, cart, date, betrag);
         return re;
-    }
+    }*/
 }

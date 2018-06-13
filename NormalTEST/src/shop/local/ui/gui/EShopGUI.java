@@ -7,14 +7,8 @@ import java.io.IOException;
 import java.util.Collections;
 
 import shop.local.domain.EShop;
-import shop.local.domain.exceptions.ArtikelExistiertBereitsException;
-import shop.local.domain.exceptions.ArtikelExistiertNichtException;
-import shop.local.domain.exceptions.BenutzernameOderPasswortFalschException;
-import shop.local.domain.exceptions.KundeExistiertBereitsException;
-import shop.local.valueobjects.Arbeiter;
-import shop.local.valueobjects.Artikel;
-import shop.local.valueobjects.Kunde;
-import shop.local.valueobjects.User;
+import shop.local.domain.exceptions.*;
+import shop.local.valueobjects.*;
 
 
 public class EShopGUI extends JFrame {
@@ -33,10 +27,12 @@ public class EShopGUI extends JFrame {
     private JScrollPane artikelScrollPane;
     private JScrollPane arbeiterScrollPane;
     private JScrollPane kundenScrollPane;
+    private JScrollPane cartScrollPane;
     private JList artikelListe;
     private JTable artikelTabelle;
     private JTable arbeiterTabelle;
     private JTable kundenTabelle;
+    private JTable cartTabelle;
     private JTextField plzTextFeld;
     private JTextField prizeTextFeld;
     private JTextField ortTextFeld;
@@ -55,49 +51,6 @@ public class EShopGUI extends JFrame {
             e.printStackTrace();
         }
     }
-
-    /*private void initializeTest () {
-        JTabbedPane adminTabbedPane = new JTabbedPane();
-
-        JPanel suchPanel = new JPanel();
-        suchPanel.setBorder(BorderFactory.createTitledBorder("Suche"));
-
-        GridBagLayout gridBagLayout = new GridBagLayout();
-        suchPanel.setLayout(gridBagLayout);
-        GridBagConstraints c = new GridBagConstraints();
-        c.fill = GridBagConstraints.HORIZONTAL;
-        c.gridy = 0;
-
-        JLabel searchLabel = new JLabel("Suchbegriff:");
-        c.gridx = 0;
-        c.weightx = 0.1;
-        c.anchor = GridBagConstraints.EAST;
-        gridBagLayout.setConstraints(searchLabel, c);
-        suchPanel.add(searchLabel);
-
-        searchTextField = new JTextField();
-        searchTextField.setToolTipText("Wonach soll gesucht werden?");
-        c.gridx = 1;
-        c.weightx = 0.6;
-        gridBagLayout.setConstraints(searchTextField, c);
-        suchPanel.add(searchTextField);
-
-        JButton searchButton = new JButton("Los!");
-        searchButton.addActionListener(new SuchActionListener());
-        c.gridx = 2;
-        c.weightx = 0.2;
-        gridBagLayout.setConstraints(searchButton, c);
-        suchPanel.add(searchButton);
-
-        adminTabbedPane.addTab("Suchen", suchPanel);
-        adminTabbedPane.setMnemonicAt(0, KeyEvent.VK_S);
-
-        this.setLayout(new BorderLayout());
-        this.add(adminTabbedPane, BorderLayout.CENTER);
-
-        this.setSize(1280, 720);
-        this.setVisible(true);
-    }*/
 
     private void initializeLogin() {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -208,6 +161,7 @@ public class EShopGUI extends JFrame {
         gridBagLayout.setConstraints(searchButton, c);
         suchPanel.add(searchButton);
 
+        //TODO: ausgewählte zeile in tabelle vergleichen mit artikel und den gefundenen artikel zum warenkorb hinzufügen
         int noOfRows = 12;
         JPanel insertPanel = new JPanel();
         insertPanel.setBorder(BorderFactory.createTitledBorder("Warenkorb"));
@@ -231,6 +185,7 @@ public class EShopGUI extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 Integer nummer = Integer.parseInt(numTextFeld.getText());
                 Integer amount = Integer.parseInt(amountTextFeld.getText());
+                //TODO: Artikel in den Warenkorb einfügen geht nicht?
                 if (!(nummer == null) && !(amount == null)) {
                     try {
                         shop.addToCart(nummer, amount, ((Kunde) eingeloggterBenutzer).getWarenkorb());
@@ -265,12 +220,24 @@ public class EShopGUI extends JFrame {
         artikelTabelle = new JTable(tModel);
         artikelScrollPane = new JScrollPane(artikelTabelle);
 
+        java.util.List<Artikel> cart = shop.gibWarenkorb(((Kunde) eingeloggterBenutzer).getWarenkorb());
+        CartTableModel cModel = new CartTableModel(cart);
+        cartTabelle = new JTable(cModel);
+        cartScrollPane = new JScrollPane(cartTabelle);
+
+        JTabbedPane contentTabbedPane = new JTabbedPane();
+
+        contentTabbedPane.addTab("Artikel", artikelScrollPane);
+        contentTabbedPane.setMnemonicAt(0, KeyEvent.VK_1);
+        contentTabbedPane.addTab("Warenkorb", cartScrollPane);
+        contentTabbedPane.setMnemonicAt(1, KeyEvent.VK_2);
+
         this.getContentPane().removeAll();
 
         this.setLayout(new BorderLayout());
         this.add(suchPanel, BorderLayout.SOUTH);
         this.add(insertPanel, BorderLayout.EAST);
-        this.add(artikelScrollPane, BorderLayout.CENTER);
+        this.add(contentTabbedPane, BorderLayout.CENTER);
 
         this.setSize(1280, 720);
         this.setVisible(true);
@@ -355,11 +322,14 @@ public class EShopGUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String bezeichnung = bezeichnungTextFeld.getText();
-                Integer nummer = Integer.parseInt(numTextFeld.getText());
-                Integer amount = Integer.parseInt(amountTextFeld.getText());
-                Float prize = Float.parseFloat(prizeTextFeld.getText());
-                if (!bezeichnung.isEmpty() && !(nummer == null) && !(amount == null) && !(prize == null)) {
+                String sNummer = numTextFeld.getText();
+                String sAmount = amountTextFeld.getText();
+                String sPrize = prizeTextFeld.getText();
+                if (!bezeichnung.isEmpty() && !sNummer.isEmpty() && !sAmount.isEmpty() && !sPrize.isEmpty()) {
                     try {
+                        Integer nummer = Integer.parseInt(numTextFeld.getText());
+                        Integer amount = Integer.parseInt(amountTextFeld.getText());
+                        Float prize = Float.parseFloat(prizeTextFeld.getText());
                         shop.fuegeArtikelEin(bezeichnung, nummer, amount, prize);
                         bezeichnungTextFeld.setText("");
                         numTextFeld.setText("");
@@ -370,13 +340,13 @@ public class EShopGUI extends JFrame {
                     } catch (NumberFormatException nfe) {
                         JOptionPane.showMessageDialog(rootPane, nfe.getMessage());
                     }
+                } else if (bezeichnung.isEmpty() || sNummer.isEmpty() || sAmount.isEmpty() || sPrize.isEmpty()) {
+                    JOptionPane.showMessageDialog(rootPane, "Bitte alle Felder ausfüllen");
                 }
             }
         });
         insertPanel.add(new JLabel());
         insertPanel.add(addButton);
-
-        //Nutzer anlegen und Bestand ändern
 
         java.util.List<Artikel> artikel = shop.gibAlleArtikel();
         ArtikelTableModel tModel = new ArtikelTableModel(artikel);
@@ -426,6 +396,25 @@ public class EShopGUI extends JFrame {
         JRadioButton customerButton = new JRadioButton("Kunden");
         userPanel.add(adminButton);
         userPanel.add(customerButton);
+        adminButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                plzTextFeld.setEditable(false);
+                ortTextFeld.setEditable(false);
+                strTextFeld.setEditable(false);
+                landTextFeld.setEditable(false);
+            }
+        });
+
+        customerButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                plzTextFeld.setEditable(true);
+                ortTextFeld.setEditable(true);
+                strTextFeld.setEditable(true);
+                landTextFeld.setEditable(true);
+            }
+        });
 
         ButtonGroup usergroup = new ButtonGroup();
         usergroup.add(adminButton);
@@ -446,7 +435,7 @@ public class EShopGUI extends JFrame {
                 String ort = ortTextFeld.getText();
                 String strasse = strTextFeld.getText();
                 String land = landTextFeld.getText();
-                if (!name.isEmpty() && !passwort.isEmpty() && !nummer.isEmpty()) {
+                if (customerButton.isSelected() && !name.isEmpty() && !passwort.isEmpty() && !nummer.isEmpty() && !plz.isEmpty() && !ort.isEmpty() && !strasse.isEmpty() && !land.isEmpty()) {
                     try {
                         shop.newK(name, passwort, nummer, plz, ort, strasse, land);
                         nameTextFeld.setText("");
@@ -456,13 +445,24 @@ public class EShopGUI extends JFrame {
                         ortTextFeld.setText("");
                         strTextFeld.setText("");
                         landTextFeld.setText("");
-
-                        //TODO: Irgendwie noch entscheiden, ob ein Kunde oder eine Arbeiter angelegt werden muss
                     } catch (KundeExistiertBereitsException kebe) {
                         JOptionPane.showMessageDialog(rootPane, kebe.getMessage());
                     } catch (NumberFormatException nfe) {
                         JOptionPane.showMessageDialog(rootPane, nfe.getMessage());
                     }
+                } else if (adminButton.isSelected() && !name.isEmpty() && !passwort.isEmpty() && !nummer.isEmpty()) {
+                    try {
+                        shop.newA(name, passwort, nummer);
+                        nameTextFeld.setText("");
+                        pwTextFeld.setText("");
+                        numTextFeld.setText("");
+                    } catch (ArbeiterExistiertBereitsException aebe) {
+                        JOptionPane.showMessageDialog(rootPane, aebe.getMessage());
+                    } catch (NumberFormatException nfe) {
+                        JOptionPane.showMessageDialog(rootPane, nfe.getMessage());
+                    }
+                } else if (name.isEmpty() || passwort.isEmpty() || nummer.isEmpty() || plz.isEmpty() || ort.isEmpty() || strasse.isEmpty() || land.isEmpty()) {
+                    JOptionPane.showMessageDialog(rootPane, "Bitte alle Felder ausfüllen.");
                 }
             }
         });
@@ -536,8 +536,6 @@ public class EShopGUI extends JFrame {
                     // die kommende Zeile nehmen um Meldungen als Pop-Up zu zeigen. Ggf. "rootPane" zu einem anderen Frame ändern.
                     JOptionPane.showMessageDialog(rootPane, bpfe.getMessage());
                 }
-
-
             }
         }
     }
@@ -547,8 +545,12 @@ public class EShopGUI extends JFrame {
         public void actionPerformed(ActionEvent e) {
             String suchbegriff = searchTextField.getText();
             java.util.List<Artikel> suchErgebnis;
+            java.util.List<Arbeiter> suchErgAdmin = null;
+            java.util.List<Kunde> suchErgKunde = null;
             if (suchbegriff.isEmpty()) {
                 suchErgebnis = shop.gibAlleArtikel();
+                suchErgAdmin = shop.gibAlleArbeiter();
+                suchErgKunde = shop.gibAlleKunden();
             } else {
                 suchErgebnis = shop.sucheNachBezeichnung(suchbegriff);
             }
@@ -556,6 +558,12 @@ public class EShopGUI extends JFrame {
 
             ArtikelTableModel tModel = (ArtikelTableModel) artikelTabelle.getModel();
             tModel.setArtikel(suchErgebnis);
+
+            ArbeiterTableModel aModel = (ArbeiterTableModel) arbeiterTabelle.getModel();
+            aModel.setArtikel(suchErgAdmin);
+
+            KundenTableModel kModel = (KundenTableModel) kundenTabelle.getModel();
+            kModel.setArtikel(suchErgKunde);
 
             searchTextField.setText("");
         }

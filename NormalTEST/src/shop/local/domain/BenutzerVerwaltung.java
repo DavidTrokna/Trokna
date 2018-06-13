@@ -38,7 +38,7 @@ public class BenutzerVerwaltung {
 		do {
 			einArbeiter = pm.ladeArbeiter();
 			if (einArbeiter != null) {
-				einfuegenA(einArbeiter.getName(), einArbeiter.getPasswort(),  einArbeiter.getNummer(),einArbeiter.getUsertyp());
+				einfuegenA(einArbeiter.getName(), einArbeiter.getPasswort(),  einArbeiter.getNummer());
 			}
 		} while (einArbeiter != null);
 		// Persistenz-Schnittstelle wieder schließen
@@ -59,8 +59,8 @@ public class BenutzerVerwaltung {
 		pm.close();
 	}
 
-    public void einfuegenA(String name, String passwort, String nummer, String usertype) {
-        Arbeiter einArbeiter = new Arbeiter (name, passwort, nummer, usertype);
+    public void einfuegenA(String name, String passwort, String nummer) {
+        Arbeiter einArbeiter = new Arbeiter (name, passwort, nummer, "a");
         // das übernimmt der Vector
         arbeiterListe.add(einArbeiter);
     }
