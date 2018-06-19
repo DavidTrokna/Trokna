@@ -211,6 +211,8 @@ public class EShopGUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 shop.kaufeArtikel((Kunde) eingeloggterBenutzer);
+                CartTableModel cModel = (CartTableModel) cartTabelle.getModel();
+                cModel.setArtikel(shop.gibWarenkorb(((Kunde) eingeloggterBenutzer).getWarenkorb()));
             }
         });
         insertPanel.add(new JLabel());
@@ -623,6 +625,11 @@ public class EShopGUI extends JFrame {
             System.out.println(command);
 
             if (command.equals("Abmelden")) {
+                try {
+                    shop.schreibeDaten();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 rootPane.getContentPane().removeAll();
                 initializeLogin();
             }
@@ -633,6 +640,11 @@ public class EShopGUI extends JFrame {
                     e.printStackTrace();
                 }
             } else if (command.equals("Beenden")) {
+                try {
+                    shop.schreibeDaten();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 setVisible(false);
                 dispose();
                 System.exit(0);
