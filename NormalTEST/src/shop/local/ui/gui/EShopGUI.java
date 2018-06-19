@@ -198,7 +198,9 @@ public class EShopGUI extends JFrame {
                         JOptionPane.showMessageDialog(rootPane, nfe.getMessage());
                     }
                 }
-                ((Kunde) eingeloggterBenutzer).getWarenkorb();
+                //((Kunde) eingeloggterBenutzer).getWarenkorb();
+                CartTableModel cModel = (CartTableModel) cartTabelle.getModel();
+                cModel.setArtikel(shop.gibWarenkorb(((Kunde) eingeloggterBenutzer).getWarenkorb()));
             }
         });
         insertPanel.add(new JLabel());
@@ -532,7 +534,6 @@ public class EShopGUI extends JFrame {
                     else {
                         initializeCustomer();
                     }
-
                 } catch (BenutzernameOderPasswortFalschException bpfe) {
                     // die kommende Zeile nehmen um Meldungen als Pop-Up zu zeigen. Ggf. "rootPane" zu einem anderen Frame ändern.
                     JOptionPane.showMessageDialog(rootPane, bpfe.getMessage());
