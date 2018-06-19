@@ -8,10 +8,7 @@ import java.util.List;
 
 import shop.local.domain.EShop;
 import shop.local.domain.exceptions.*;
-import shop.local.valueobjects.Artikel;
-import shop.local.valueobjects.Kunde;
-import shop.local.valueobjects.User;
-import shop.local.valueobjects.Arbeiter;
+import shop.local.valueobjects.*;
 
 
 public class EShopClientCUI {
@@ -98,6 +95,7 @@ public class EShopClientCUI {
 		String bezeichnung;
 		int menge;
 		List<Artikel> liste;
+		List<CartEntry> cliste;
 
 		int bestand;
 		float preis;
@@ -253,8 +251,8 @@ public class EShopClientCUI {
 				break;*/
 			case "w": //Ausgabe des Warenkorbs
 				if (user instanceof Kunde) {
-					liste = shop.gibWarenkorb(((Kunde) eingeloggterBenutzer).getWarenkorb());
-					for (Artikel art : liste) {
+					cliste = shop.gibWarenkorb(((Kunde) eingeloggterBenutzer).getWarenkorb());
+					for (CartEntry art : cliste) {
 						System.out.println(art);
 					}
 				}

@@ -21,15 +21,15 @@ public class Cart {
         entries.add(new CartEntry(artikel, anzahl));
     }
 
-    public ArrayList<Artikel> getArtikel() {
-        return artikel;
+    public ArrayList<CartEntry> getArtikel() {
+        return entries;
     }
 
     public void clear() {
-        this.artikel.clear();
+        this.entries.clear();
     }
 
-    public void remove(Artikel cartart) {
-        artikel.remove(cartart);
+    public void remove(CartEntry cartart) {
+        entries.remove(cartart);
     }
 }

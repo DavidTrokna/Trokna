@@ -155,7 +155,7 @@ public class EShopGUI extends JFrame {
         suchPanel.add(searchTextField);
 
         JButton searchButton = new JButton("Los!");
-        searchButton.addActionListener(new SuchActionListener());
+        searchButton.addActionListener(new SuchActionListenerC());
         c.gridx = 2;
         c.weightx = 0.2;
         gridBagLayout.setConstraints(searchButton, c);
@@ -198,6 +198,7 @@ public class EShopGUI extends JFrame {
                         JOptionPane.showMessageDialog(rootPane, nfe.getMessage());
                     }
                 }
+                ((Kunde) eingeloggterBenutzer).getWarenkorb();
             }
         });
         insertPanel.add(new JLabel());
@@ -220,7 +221,7 @@ public class EShopGUI extends JFrame {
         artikelTabelle = new JTable(tModel);
         artikelScrollPane = new JScrollPane(artikelTabelle);
 
-        java.util.List<Artikel> cart = shop.gibWarenkorb(((Kunde) eingeloggterBenutzer).getWarenkorb());
+        java.util.List<CartEntry> cart = shop.gibWarenkorb(((Kunde) eingeloggterBenutzer).getWarenkorb());
         CartTableModel cModel = new CartTableModel(cart);
         cartTabelle = new JTable(cModel);
         cartScrollPane = new JScrollPane(cartTabelle);
@@ -547,10 +548,12 @@ public class EShopGUI extends JFrame {
             java.util.List<Artikel> suchErgebnis;
             java.util.List<Arbeiter> suchErgAdmin = null;
             java.util.List<Kunde> suchErgKunde = null;
+            java.util.List<CartEntry> suchErgCart = null;
             if (suchbegriff.isEmpty()) {
                 suchErgebnis = shop.gibAlleArtikel();
                 suchErgAdmin = shop.gibAlleArbeiter();
                 suchErgKunde = shop.gibAlleKunden();
+                suchErgCart = shop.gibWarenkorb(((Kunde) eingeloggterBenutzer).getWarenkorb());
             } else {
                 suchErgebnis = shop.sucheNachBezeichnung(suchbegriff);
             }
@@ -564,6 +567,33 @@ public class EShopGUI extends JFrame {
 
             KundenTableModel kModel = (KundenTableModel) kundenTabelle.getModel();
             kModel.setArtikel(suchErgKunde);
+
+            CartTableModel cModel = (CartTableModel) cartTabelle.getModel();
+            cModel.setArtikel(suchErgCart);
+
+            searchTextField.setText("");
+        }
+    }
+
+    class SuchActionListenerC implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            String suchbegriff = searchTextField.getText();
+            java.util.List<Artikel> suchErgebnis;
+            java.util.List<CartEntry> suchErgCart = null;
+            if (suchbegriff.isEmpty()) {
+                suchErgebnis = shop.gibAlleArtikel();
+                suchErgCart = shop.gibWarenkorb(((Kunde) eingeloggterBenutzer).getWarenkorb());
+            } else {
+                suchErgebnis = shop.sucheNachBezeichnung(suchbegriff);
+            }
+            Collections.sort(suchErgebnis, (artikel1, artikel2) -> artikel1.getNummer() - artikel2.getNummer());
+
+            ArtikelTableModel tModel = (ArtikelTableModel) artikelTabelle.getModel();
+            tModel.setArtikel(suchErgebnis);
+
+            CartTableModel cModel = (CartTableModel) cartTabelle.getModel();
+            cModel.setArtikel(suchErgCart);
 
             searchTextField.setText("");
         }

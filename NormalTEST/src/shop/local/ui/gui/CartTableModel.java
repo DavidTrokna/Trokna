@@ -1,23 +1,24 @@
 package shop.local.ui.gui;
 
 import shop.local.valueobjects.Artikel;
+import shop.local.valueobjects.CartEntry;
 
 import javax.swing.table.AbstractTableModel;
 import java.util.List;
 import java.util.Vector;
 
 public class CartTableModel extends AbstractTableModel {
-    private List<Artikel> cart;
+    private List<CartEntry> cart;
     private String[] spaltenNamen = { "Nummer", "Bezeichnung", "Menge", "Preis"};
 
-    public CartTableModel(List<Artikel> aktuelleArtikel) {
+    public CartTableModel(List<CartEntry> aktuelleArtikel) {
         super();
 
-        cart = new Vector<Artikel>();
+        cart = new Vector<CartEntry>();
         cart.addAll(aktuelleArtikel);
     }
 
-    public void setArtikel(List<Artikel> aktuelleArtikel) {
+    public void setArtikel(List<CartEntry> aktuelleArtikel) {
         cart.clear();
         cart.addAll(aktuelleArtikel);
         fireTableDataChanged();
@@ -40,14 +41,14 @@ public class CartTableModel extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int row, int col) {
-        Artikel chosenArtikel = cart.get(row);
+        CartEntry chosenArtikel = cart.get(row);
         switch (col) {
             case 0:
                 return chosenArtikel.getNummer();
             case 1:
                 return chosenArtikel.getBezeichnung();
             case 2:
-                return chosenArtikel.getBestand();
+                return chosenArtikel.getAnzahl();
             case 3:
                 return chosenArtikel.getPreis();
             default:

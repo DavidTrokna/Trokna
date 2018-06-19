@@ -15,7 +15,7 @@ public class Rechnung {
 
     public Rechnung(Kunde k, Cart cart) {
         this.kunde = kunde;
-        this.artikel = cart.getArtikel();
+        //this.artikel = cart.getArtikel();
         this.date = new Date();
         this.betrag = betrag;
     }

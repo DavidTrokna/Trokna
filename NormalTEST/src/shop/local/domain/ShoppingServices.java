@@ -1,10 +1,7 @@
 package shop.local.domain;
 
 import shop.local.domain.exceptions.ArtikelExistiertNichtException;
-import shop.local.valueobjects.Artikel;
-import shop.local.valueobjects.Cart;
-import shop.local.valueobjects.Kunde;
-import shop.local.valueobjects.Rechnung;
+import shop.local.valueobjects.*;
 
 import java.util.List;
 import java.util.Vector;
@@ -18,7 +15,7 @@ public class ShoppingServices {
         this.artikelVw = artikelVw;
     }
 
-    public List<Artikel> getCartContent(Cart cart) {
+    public List<CartEntry> getCartContent(Cart cart) {
         return cart.getArtikel();
     }
 
@@ -28,7 +25,7 @@ public class ShoppingServices {
             if (art.getNummer() == artNummer) {
                 //art.verringereBestand(menge); /nur wenn Artikel später auch rückgeführt werden
                 cart.add(art, menge);
-            } else {
+            } else if (art == null){
                 throw new ArtikelExistiertNichtException(artNummer);
             }
         }
@@ -41,14 +38,13 @@ public class ShoppingServices {
         int artNummer;
 //        boolean leerCart = false;
         Cart cart = k.getWarenkorb();
-
-        for (Artikel cartart : cart.getArtikel()) {
-            betrag += cartart.getPreis() * cartart.getBestand();
+        for (CartEntry cartart : cart.getArtikel()) {
+            betrag += cartart.getPreis() * cartart.getAnzahl();
             artNummer = cartart.getNummer();
 //            leerCart = true;
             for (Artikel art : artikelBestand) {
                 if (art.getNummer() == artNummer) {
-                    artikelVw.verringereBestand(art, cartart.getBestand());
+                    artikelVw.verringereBestand(art, cartart.getAnzahl());
                     break;
                 }
             }
@@ -62,8 +58,8 @@ public class ShoppingServices {
     }
 
     public void cartRemove (int nr, Cart cart) {
-        Artikel a = null;
-        for (Artikel cartart : cart.getArtikel()) {
+        CartEntry a = null;
+        for (CartEntry cartart : cart.getArtikel()) {
             if (cartart.getNummer() == nr) {
                 a = cartart;
             }
@@ -72,13 +68,13 @@ public class ShoppingServices {
     }
 
     public void cartChange(int nr, int menge, Cart warenkorb) {
-        Artikel a = null;
-        for (Artikel cartart : warenkorb.getArtikel()) {
+        CartEntry a = null;
+        for (CartEntry cartart : warenkorb.getArtikel()) {
             if (cartart.getNummer() == nr) {
                 a = cartart;
             }
         }
-        a.setBestand(menge);
+        a.setAnzahl(menge);
     }
 
     /*public Rechnung erstelleRechnung(Kunde kunde, List<Artikel> cart, String date, float betrag) {

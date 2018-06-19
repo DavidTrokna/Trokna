@@ -16,6 +16,18 @@ public class CartEntry {
 
     public void setArtikel(Artikel artikel) { this.artikel = artikel; }
 
+    public String getBezeichnung() {
+        return artikel.getBezeichnung();
+    }
+
+    public int getNummer() {
+        return artikel.getNummer();
+    }
+
+    public float getPreis() {
+        return artikel.getPreis();
+    }
+
     public int getAnzahl() {
         return anzahl;
     }
@@ -24,6 +36,6 @@ public class CartEntry {
         this.anzahl = anzahl;
     }
 
-    public void setCartAnzahl() { this.anzahl = 0; }
+    //public void setCartAnzahl() { this.anzahl = 0; }
 
 }

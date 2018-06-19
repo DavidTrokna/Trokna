@@ -80,7 +80,7 @@ public class EShop {
     }
 
     // Gibt den Inhalt des Warenkorbs aus
-    public List<Artikel> gibWarenkorb(Cart cart) {
+    public List<CartEntry> gibWarenkorb(Cart cart) {
         return shoppingS.getCartContent(cart);
     }
 
