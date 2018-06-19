@@ -210,7 +210,9 @@ public class EShopGUI extends JFrame {
         buyButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                shop.kaufeArtikel((Kunde) eingeloggterBenutzer);
+                Rechnung bill;
+                bill = shop.kaufeArtikel((Kunde) eingeloggterBenutzer);
+                JOptionPane.showMessageDialog(rootPane, bill.getMessage());
                 CartTableModel cModel = (CartTableModel) cartTabelle.getModel();
                 cModel.setArtikel(shop.gibWarenkorb(((Kunde) eingeloggterBenutzer).getWarenkorb()));
             }

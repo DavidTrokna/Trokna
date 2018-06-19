@@ -32,10 +32,11 @@ public class ShoppingServices {
 
     }
 
-    public float buyCart(Kunde k) {
+    public Rechnung buyCart(Kunde k) {
         List<Artikel> artikelBestand = artikelVw.getArtikelBestand();
         float betrag = 0;
         int artNummer;
+        Rechnung bill = new Rechnung(k, k.getWarenkorb());
 //        boolean leerCart = false;
         Cart cart = k.getWarenkorb();
         for (CartEntry cartart : cart.getArtikel()) {
@@ -54,7 +55,7 @@ public class ShoppingServices {
         // Wenn erfolgreich:
         cart.clear();
 
-        return betrag;
+        return bill;
     }
 
     public void cartRemove (int nr, Cart cart) {

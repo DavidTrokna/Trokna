@@ -100,7 +100,7 @@ public class EShop {
     }
 
     // "Kauft" alle Artikel im Warenkorb
-    public float kaufeArtikel(Kunde k) {
+    public Rechnung kaufeArtikel(Kunde k) {
         return shoppingS.buyCart(k);
     }
 
