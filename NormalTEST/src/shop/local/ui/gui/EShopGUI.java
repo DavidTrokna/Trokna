@@ -125,17 +125,6 @@ public class EShopGUI extends JFrame {
         gridBagLayout.setConstraints(registerButton, c);
         loginButtonPanel.add(registerButton);
 
-//        KeyListener registerKey = new KeyAdapter() {
-//            @Override
-//            public void keyPressed(KeyEvent e) {
-//                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-//                    registerButton.doClick();
-//                }
-//            }
-//        };
-
-//        loginPasswordTextField.addKeyListener(registerKey);
-
         this.setLayout(new BorderLayout());
         this.add(loginPanel, BorderLayout.CENTER);
         this.add(loginButtonPanel, BorderLayout.SOUTH);

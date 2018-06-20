@@ -11,15 +11,11 @@ public class Rechnung {
     private ArrayList<Artikel> artikel;
     private List<CartEntry> cart;
     private Date date;
-    private float betrag;
 
     public Rechnung(Kunde k, Cart cart) {
         this.kunde = k;
-        //this.artikel = cart.getArtikel();
         this.date = new Date();
-        this.betrag = getBetrag();
-        this.cart = getCart();  // TODO: Kopie der CartEntries speichern
-        System.out.print("Sie, Herr/Frau " + kunde.getName() + "haben am " + date + "folgende Waren im Gesamtwert von " + betrag + " Euro gekauft:");
+        this.cart = cart.getArtikel();
     }
 
     public String getMessage() {
@@ -43,10 +39,4 @@ public class Rechnung {
         }
         return betrag;
     }
-
-    //    public String bon() {
-//        return ("Sie, Herr/Frau " + kunde.getName() + "haben am " + date + "folgende Waren im Gesamtwert von " + betrag + " Euro gekauft: ");
-/*        for (Artikel cartart : cart) {
-            System.out.println(cartart);
-        }*/
 }
