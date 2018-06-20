@@ -18,7 +18,7 @@ public class Rechnung {
         //this.artikel = cart.getArtikel();
         this.date = new Date();
         this.betrag = getBetrag();
-        this.cart = getCart();
+        this.cart = getCart();  // TODO: Kopie der CartEntries speichern
         System.out.print("Sie, Herr/Frau " + kunde.getName() + "haben am " + date + "folgende Waren im Gesamtwert von " + betrag + " Euro gekauft:");
     }
 

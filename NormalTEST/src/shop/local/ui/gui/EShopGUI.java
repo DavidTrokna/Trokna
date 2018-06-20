@@ -22,6 +22,13 @@ public class EShopGUI extends JFrame {
     private JTextField searchTextField;
     private JTextField loginNameTextField;
     private JTextField loginPasswordTextField;
+    private JTextField registerNameTextFeld;
+    private JTextField registerPasswordTextFeld;
+    private JTextField registerNummerTextFeld;
+    private JTextField registerPLZTextFeld;
+    private JTextField registerOrtTextFeld;
+    private JTextField registerStrTextFeld;
+    private JTextField registerLandTextFeld;
     private JTextField amountTextFeld;
     private JTextField pwTextFeld;
     private JScrollPane artikelScrollPane;
@@ -109,6 +116,134 @@ public class EShopGUI extends JFrame {
         };
 
         loginPasswordTextField.addKeyListener(loginKey);
+
+        JButton registerButton = new JButton("Registrieren");
+        registerButton.addActionListener(new RegisterActionListener());
+        c.gridx = 2;
+        c.weightx = 0.2;
+        c.anchor = GridBagConstraints.SOUTH;
+        gridBagLayout.setConstraints(registerButton, c);
+        loginButtonPanel.add(registerButton);
+
+//        KeyListener registerKey = new KeyAdapter() {
+//            @Override
+//            public void keyPressed(KeyEvent e) {
+//                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+//                    registerButton.doClick();
+//                }
+//            }
+//        };
+
+//        loginPasswordTextField.addKeyListener(registerKey);
+
+        this.setLayout(new BorderLayout());
+        this.add(loginPanel, BorderLayout.CENTER);
+        this.add(loginButtonPanel, BorderLayout.SOUTH);
+
+        this.setSize(1280, 720);
+        this.setVisible(true);
+    }
+
+    private void initializeRegister() {
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+        JPanel regPanel = new JPanel();
+        regPanel.setBorder(BorderFactory.createTitledBorder("LOGIN"));
+
+        JPanel loginButtonPanel = new JPanel();
+
+        GridBagLayout gridBagLayout = new GridBagLayout();
+        regPanel.setLayout(gridBagLayout);
+        GridBagConstraints c = new GridBagConstraints();
+        c.fill = GridBagConstraints.HORIZONTAL;
+
+        JLabel nameLabel = new JLabel("Name:");
+        c.gridx = 0;
+        c.weightx = 0.1;
+        c.anchor = GridBagConstraints.EAST;
+        gridBagLayout.setConstraints(nameLabel, c);
+        regPanel.add(nameLabel);
+
+        loginNameTextField = new JTextField();
+        c.gridx = 1;
+        c.weightx = 0.6;
+        gridBagLayout.setConstraints(loginNameTextField, c);
+        regPanel.add(loginNameTextField);
+
+        JLabel passwordLabel = new JLabel("Passwort:");
+        c.gridx = 0;
+        c.weightx = 0.1;
+        c.anchor = GridBagConstraints.EAST;
+        gridBagLayout.setConstraints(passwordLabel, c);
+        regPanel.add(passwordLabel);
+
+        JLabel nummerLabel = new JLabel("Nummer:");
+        c.gridx = 0;
+        c.weightx = 0.1;
+        c.anchor = GridBagConstraints.EAST;
+        gridBagLayout.setConstraints(passwordLabel, c);
+        regPanel.add(passwordLabel);
+
+        JLabel plzLabel = new JLabel("PLZ:");
+        c.gridx = 0;
+        c.weightx = 0.1;
+        c.anchor = GridBagConstraints.EAST;
+        gridBagLayout.setConstraints(passwordLabel, c);
+        regPanel.add(passwordLabel);
+
+        JLabel ortLabel = new JLabel("Ort:");
+        c.gridx = 0;
+        c.weightx = 0.1;
+        c.anchor = GridBagConstraints.EAST;
+        gridBagLayout.setConstraints(passwordLabel, c);
+        regPanel.add(passwordLabel);
+
+        JLabel strasseLabel = new JLabel("Strasse:");
+        c.gridx = 0;
+        c.weightx = 0.1;
+        c.anchor = GridBagConstraints.EAST;
+        gridBagLayout.setConstraints(passwordLabel, c);
+        regPanel.add(passwordLabel);
+
+        JLabel landLabel = new JLabel("Land:");
+        c.gridx = 0;
+        c.weightx = 0.1;
+        c.anchor = GridBagConstraints.EAST;
+        gridBagLayout.setConstraints(passwordLabel, c);
+        regPanel.add(passwordLabel);
+
+        loginPasswordTextField = new JPasswordField();
+        c.gridx = 1;
+        c.weightx = 0.6;
+        gridBagLayout.setConstraints(loginPasswordTextField, c);
+        regPanel.add(loginPasswordTextField);
+
+        JButton loginButton = new JButton("Anmelden");
+        loginButton.addActionListener(new LoginActionListener());
+        c.gridx = 2;
+        c.weightx = 0.2;
+        c.anchor = GridBagConstraints.SOUTH;
+        gridBagLayout.setConstraints(loginButton, c);
+        loginButtonPanel.add(loginButton);
+
+        KeyListener loginKey = new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    loginButton.doClick();
+                }
+            }
+        };
+
+        loginPasswordTextField.addKeyListener(loginKey);
+
+        JButton registerButton = new JButton("Registrieren");
+        registerButton.addActionListener(new RegisterActionListener());
+        c.gridx = 2;
+        c.weightx = 0.2;
+        c.anchor = GridBagConstraints.SOUTH;
+        gridBagLayout.setConstraints(registerButton, c);
+        loginButtonPanel.add(registerButton);
 
         this.setLayout(new BorderLayout());
         this.add(loginPanel, BorderLayout.CENTER);
@@ -530,6 +665,49 @@ public class EShopGUI extends JFrame {
                 loginPasswordTextField.setText("");
             } else {
                 try {
+                    eingeloggterBenutzer = shop.einloggen(name, password);
+
+                    if (eingeloggterBenutzer instanceof Arbeiter) {
+                        initializeAdmin();
+                    }
+                    else {
+                        initializeCustomer();
+                    }
+                } catch (BenutzernameOderPasswortFalschException bpfe) {
+                    // die kommende Zeile nehmen um Meldungen als Pop-Up zu zeigen. Ggf. "rootPane" zu einem anderen Frame ändern.
+                    JOptionPane.showMessageDialog(rootPane, bpfe.getMessage());
+                }
+            }
+        }
+    }
+
+    class RegisterActionListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            String name = registerNameTextFeld.getText();
+            String password = registerPasswordTextFeld.getText();
+            String nummer = registerNummerTextFeld.getText();
+            String plz = registerPLZTextFeld.getText();
+            String ort = registerOrtTextFeld.getText();
+            String str = registerStrTextFeld.getText();
+            String land = registerLandTextFeld.getText();
+            if (name.isEmpty()
+                    ||password.isEmpty()
+                    ||nummer.isEmpty()
+                    ||plz.isEmpty()
+                    ||ort.isEmpty()
+                    ||str.isEmpty()
+                    ||land.isEmpty()) {
+
+                JOptionPane.showMessageDialog(rootPane, "Bitte alle Felder ausfüllen.");
+
+            } else {
+                try {
+                    try {
+                        shop.newK(name, password, nummer, plz, ort, str, land);
+                    } catch (KundeExistiertBereitsException kebe) {
+                        JOptionPane.showMessageDialog(rootPane, kebe.getMessage());
+                    }
                     eingeloggterBenutzer = shop.einloggen(name, password);
 
                     if (eingeloggterBenutzer instanceof Arbeiter) {

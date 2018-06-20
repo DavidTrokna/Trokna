@@ -1,6 +1,7 @@
 package shop.local.valueobjects;
 
 public class Artikel implements Comparable<Artikel> {
+
 	private String bezeichnung;
 	private int artNummer;
 	private int bestand;
