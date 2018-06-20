@@ -6,6 +6,7 @@ import shop.local.domain.exceptions.ArtikelExistiertNichtException;
 import shop.local.persistence.FilePersistenceManager;
 import shop.local.persistence.PersistenceManager;
 import shop.local.valueobjects.Artikel;
+import shop.local.valueobjects.Massengutartikel;
 import shop.local.valueobjects.User;
 
 
@@ -96,6 +97,11 @@ public class ArtikelVerwaltung {
 	//Rückgabe des Artikelbestandes
 	public List<Artikel> getArtikelBestand() {
 		//Collections.sort(artikelBestand);
+        for(Artikel artikel: artikelBestand) {
+            if(artikel instanceof Artikel) {
+
+            }
+        }
 		return artikelBestand;
 	}
 

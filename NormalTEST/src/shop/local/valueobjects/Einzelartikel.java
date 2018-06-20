@@ -14,7 +14,7 @@ public class Einzelartikel extends Artikel {
         this.bezeichnung = name;
         this.bestand = bestand;
         this.preis = preis;
-        this.psize = psize;
+        this.psize = 1;
     }
 
 

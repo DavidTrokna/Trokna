@@ -8,18 +8,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import shop.local.valueobjects.Arbeiter;
-import shop.local.valueobjects.Artikel;
-import shop.local.valueobjects.Kunde;
+import shop.local.valueobjects.*;
 
 
-/**
- * @author teschke
- *
- * Realisierung einer Schnittstelle zur persistenten Speicherung von
- * Daten in Dateien.
- * @see shop.local.persistence.PersistenceManager
- */
+
 public class FilePersistenceManager implements PersistenceManager {
 
 	private BufferedReader reader = null;
@@ -51,13 +43,8 @@ public class FilePersistenceManager implements PersistenceManager {
 		return true;
 	}
 
-	/**
-	 * Methode zum Einlesen der Buchdaten aus einer externen Datenquelle.
-	 * Das Verfügbarkeitsattribut ist in der Datenquelle (Datei) als "t" oder "f"
-	 * codiert abgelegt.
-	 * 
-	 * @return Buch-Objekt, wenn Einlesen erfolgreich, false null
-	 */
+
+
 	public Artikel ladeArtikel() throws IOException {
 		// Titel einlesen
 		String name = liesZeile();
@@ -77,10 +64,20 @@ public class FilePersistenceManager implements PersistenceManager {
 		String preisString = liesZeile();
 		// ... und von String in int konvertieren
 		float preis = Float.parseFloat(preisString);
-		
-		
+
+		String psizeString = liesZeile();
+
+		int psize = Integer.parseInt(psizeString);
+
+		String packet = liesZeile();
+		if (packet == "e"){
+			return new Einzelartikel(nummer, name, bestand, preis, psize);
+		} else {
+			return new Massengutartikel(nummer, name, bestand, preis, psize);
+		}
+
 		// neues Artikel-Objekt anlegen und zurückgeben
-		return new Artikel(name, nummer, bestand, preis);
+		//return new Artikel(name, nummer, bestand, preis, psize);
 	}
 
 	public Arbeiter ladeArbeiter() throws IOException {
@@ -129,14 +126,7 @@ public class FilePersistenceManager implements PersistenceManager {
 		return new Kunde(name, passwort, nr, plz, wohnort, strasse, land, usertype);
 	}
 
-	/**
-	 * Methode zum Schreiben der Buchdaten in eine externe Datenquelle.
-	 * Das Verfügbarkeitsattribut wird in der Datenquelle (Datei) als "t" oder "f"
-	 * codiert abgelegt.
-	 * 
-	 * @param a Buch-Objekt, das gespeichert werden soll
-	 * @return true, wenn Schreibvorgang erfolgreich, false sonst
-	 */
+
 	public boolean speichereArtikel(Artikel a) throws IOException {
 		// Titel, Nummer und Verf�gbarkeit schreiben
 		schreibeZeile(a.getBezeichnung());
